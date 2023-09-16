@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlinx.kover")
 }
 
 android {
@@ -71,4 +72,22 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.ui:ui-test-manifest")
+}
+
+koverReport {
+    verify {
+        rule {
+            minBound(10)
+        }
+    }
+    defaults {
+        mergeWith("debug")
+    }
+    androidReports("release") {
+        verify {
+            rule {
+                minBound(10)
+            }
+        }
+    }
 }
